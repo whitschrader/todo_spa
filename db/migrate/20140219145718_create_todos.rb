@@ -1,7 +1,7 @@
 class CreateTodos < ActiveRecord::Migration
   def change
     create_table :todos do |t|
-      t.string :text
+      t.string :title
       t.boolean :completed, default: false
 
       t.timestamps
