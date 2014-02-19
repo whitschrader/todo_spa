@@ -1,13 +1,9 @@
-    $(function(){
+$(function(){
 
-   var todos = [
-     {id: 1, title: "Do Homework", completed: false},
-     {id: 2, title: "Walk the dog", completed: true}];
+    var todos = [];
 
     var App = {};
    
-    App.count = 0;
-
     App.setTemp = function(name){
         this.tempName = name;
        	this.temp = HandlebarsTemplates[this.tempName];
@@ -37,8 +33,7 @@
      };
     App.render = function(item){
       this.make(item).append();
-      this.count += 1;
-        return this;
+      return this;
     };
     
     App.doThis = function(fn){
@@ -46,15 +41,45 @@
         return this;
      };
 
+    App.getCSRFParams = function(){
+      var authParam = $('meta[name=csrf-param]').attr('content');
+      var authToken = $('meta[name=csrf-token]').attr('content');
+      return {
+        authParam : authParam,
+        authToken : authToken
+      };
+    };
 
-    App.url = "SOMETHING GOES HERE";
+    App.bundleDataWithParams = function(data){
+      var csrfInfo = this.getCSRFParams();
+      data[csrfInfo.authParam] = csrfInfo.authToken;
+
+      return data;
+    }
+
+    App.urls = {
+      indexOf : { path : '/todos.json', httpMethod : 'get' },
+      create : { path : '/todos.json', httpMethod : 'post' },
+
+      // An id must be added to the todos path
+      update : { path : '/todos/', method : 'patch' },
+      destroy : { path : '/todos/', method : 'delete' } 
+    };
     
     App.saveItem = function(item, callback){
-      item.id = this.count;
-      // DO SOEMTHING HERE
-      callback(item);
-      this.count += 1;
+      var data = { todo : item };
+      //data = this.bundleDataWithParams(data);
+      $.ajax({ url : this.urls.create.path,
+               type : this.urls.create.httpMethod,
+               data : data}).done(callback);
       return this;
+    };
+
+    App.getItems = function(callback){
+      $.ajax({url : this.urls.indexOf.path,
+              type : this.urls.indexOf.httpMethod}).done(callback);
+      return this;
+               
     };
 
 
@@ -68,9 +93,9 @@
     	callback();
     };
 
-    App.use("#todos", "todo")
-      .render(todos[0])
-      .render(todos[1]);
+    //App.use("#todos", "todo")
+    //  .render(todos[0])
+    //  .render(todos[1]);
     
    	App.models = todos;
 
@@ -141,7 +166,16 @@
         }
       });
     });
-    
 
-     
+    App.doThis(function() {
+      var _this = this;
+
+      _this.getItems(function(responseData){
+        _this.models = _this.models.concat(responseData);
+        for (var i = 0; i < responseData.length; i++) {
+          _this.use('#todos', 'todo').render(responseData[i]);
+        }
+      });
     });
+
+});
