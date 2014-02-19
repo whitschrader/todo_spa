@@ -42,8 +42,8 @@ $(function(){
      };
 
     App.urls = {
-      indexOf : { path : '/todos.json', httpMethod : 'get' },
-      create : { path : '/todos.json', httpMethod : 'post' },
+      index : { path : '/todos.json', method : 'get' },
+      create : { path : '/todos.json', method : 'post' },
 
       // An id must be added to the todos path
       update : { path : '/todos/', method : 'patch' },
@@ -53,14 +53,14 @@ $(function(){
     App.saveItem = function(item, callback){
       var data = { todo : item };
       $.ajax({ url : this.urls.create.path,
-               type : this.urls.create.httpMethod,
+               type : this.urls.create.method,
                data : data}).done(callback);
       return this;
     };
 
     App.getItems = function(callback){
       $.ajax({url : this.urls.indexOf.path,
-              type : this.urls.indexOf.httpMethod}).done(callback);
+              type : this.urls.index.method}).done(callback);
       return this;      
     };
 
