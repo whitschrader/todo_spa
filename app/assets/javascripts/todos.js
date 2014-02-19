@@ -104,11 +104,12 @@
       	var id = this.dataset.id;
        	if(event.target.name === "completed"){
         	var todo =  _this.models[id];
+        	var $view = $(this);
         	todo.completed = !todo.completed;
 
         	// UPDATE ITEM
         	_this.updateItem(todo, function(){
-        		$(this).toggleClass("done-true");
+        		$view.toggleClass("done-true");
         	});
         }
 
