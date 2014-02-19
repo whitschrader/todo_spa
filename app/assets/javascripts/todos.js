@@ -59,7 +59,7 @@ $(function(){
     };
 
     App.getItems = function(callback){
-      $.ajax({url : this.urls.indexOf.path,
+      $.ajax({url : this.urls.index.path,
               type : this.urls.index.method}).done(callback);
       return this;      
     };
