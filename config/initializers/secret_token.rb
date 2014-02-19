@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-SpaApp::Application.config.secret_key_base = 'fcb928249a8c770cba7914ef19cdcd34de37c14f844e02897e5d6d59706ef7d312cf816341cd1cb5ea644281eab3c10ca7b369a648158638744ac8b2d2f8543b'
+SpaApp::Application.config.secret_key_base = ENV['SECRET_KEY_BASE'] 
