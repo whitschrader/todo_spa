@@ -41,15 +41,6 @@ $(function(){
         return this;
      };
 
-    App.getCSRFParams = function(){
-      var authParam = $('meta[name=csrf-param]').attr('content');
-      var authToken = $('meta[name=csrf-token]').attr('content');
-      return {
-        authParam : authParam,
-        authToken : authToken
-      };
-    };
-
     App.bundleDataWithParams = function(data){
       var csrfInfo = this.getCSRFParams();
       data[csrfInfo.authParam] = csrfInfo.authToken;
@@ -68,7 +59,6 @@ $(function(){
     
     App.saveItem = function(item, callback){
       var data = { todo : item };
-      //data = this.bundleDataWithParams(data);
       $.ajax({ url : this.urls.create.path,
                type : this.urls.create.httpMethod,
                data : data}).done(callback);
@@ -78,24 +68,21 @@ $(function(){
     App.getItems = function(callback){
       $.ajax({url : this.urls.indexOf.path,
               type : this.urls.indexOf.httpMethod}).done(callback);
-      return this;
-               
+      return this;      
     };
 
 
     App.updateItem = function(item, callback){
-    	// DO SOMETHING HERE
-    	callback();
+      // DO SOMETHING HERE
+      // NOTE: For the url, an id for the item must be added to the path
+      callback();
     };
 
     App.deleteItem = function(item, callback){
     	// DO SOMETHING HERE
-    	callback();
+      // NOTE: For the url, an id for the item must be added to the path
+      callback();
     };
-
-    //App.use("#todos", "todo")
-    //  .render(todos[0])
-    //  .render(todos[1]);
     
    	App.models = todos;
 
