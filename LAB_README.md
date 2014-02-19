@@ -3,7 +3,7 @@
 
 The goal of this lab is to implement ajax requests within a single page app.
 
-Fork the application in this repo and add delete and update (completed or not completed) functionality to the app.  This requires changes both in the rails app and in the javascript.
+Fork the application in this repo and add delete and update functionality to the app.  The update functionality only needs to update the completed attribute of the todo item.  This requires changes both in the rails app and in the javascript.
 
 ## Hints
 
