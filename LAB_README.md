@@ -9,7 +9,7 @@ Fork the application in this repo and add delete and update functionality to the
 
 * Run the specs for the rails app, ```bundle exec rspec spec```.  Look at what the tests are testing for.  If you understand the tests, creating the rails app will be easier.
 
-* Look at the comments in the todos.js file.  They give some hint on where to put some of the code.
+* Look at the comments in the todos.js file.  They give some hints on where to put some of the code.
 
  
  
