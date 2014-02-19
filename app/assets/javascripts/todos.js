@@ -41,13 +41,6 @@ $(function(){
         return this;
      };
 
-    App.bundleDataWithParams = function(data){
-      var csrfInfo = this.getCSRFParams();
-      data[csrfInfo.authParam] = csrfInfo.authToken;
-
-      return data;
-    }
-
     App.urls = {
       indexOf : { path : '/todos.json', httpMethod : 'get' },
       create : { path : '/todos.json', httpMethod : 'post' },
