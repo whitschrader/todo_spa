@@ -8,47 +8,46 @@
 ## A Note This
 
 ### AFTER
-var App = {
-  msg:"hello world!", 
-  logMsg: function(){
-    console.log(this);
-    console.log(this.msg)
-  }, 
-  Views: {
-    msg: "Best App, sorta", 
-    logMsg: App.logMsg
-  }
-};
+    var App = {
+      msg:"hello world!", 
+      logMsg: function(){
+        console.log(this);
+        console.log(this.msg)
+      }, 
+      Views: {
+        msg: "Best App, sorta", 
+        logMsg: App.logMsg
+      }
+    };
 
 
-App.Views.logMsg()
+    App.Views.logMsg()
 
 ### BEFORE
 
-var App = {}
+  var App = {}
 
-App.msg = "Hello, World!";
+  App.msg = "Hello, World!";
 
-App.logMsg = function(){
-   console.log(this);
-   console.log(this.msg) 
-}
-App.Views = {msg: "Best App, sorta"};
+  App.logMsg = function(){
+     console.log(this);
+     console.log(this.msg) 
+  }
+  App.Views = {msg: "Best App, sorta"};
 
-App.Views.logMsg = App.logMsg;
+  App.Views.logMsg = App.logMsg;
 
-App.Views.logMsg()
+  App.Views.logMsg()
 
 
 ## SPA APP
 
 First,
 
- rails g controller todos index --no-test-framework
+  rails g controller todos index --no-test-framework
  
 
-We neeed to work with the `todo.js` and the 
-`todos/index.html.erb`
+We neeed to work with the `todo.js` and the `todos/index.html.erb`
 
 
 `todos/index.html.erb`
@@ -58,7 +57,7 @@ We neeed to work with the `todo.js` and the
     
 
 All template information:
-`/app/assets/javascripts/templates/test.hbs`
+`./templates/test.hbs`
     <div>
      {{ msg }}
     </div>
