@@ -1,13 +1,9 @@
-    $(function(){
+$(function(){
 
-   var todos = [
-     {id: 1, title: "Do Homework", completed: false},
-     {id: 2, title: "Walk the dog", completed: true}];
+    var todos = [];
 
     var App = {};
    
-    App.count = 0;
-
     App.setTemp = function(name){
         this.tempName = name;
        	this.temp = HandlebarsTemplates[this.tempName];
@@ -37,8 +33,7 @@
      };
     App.render = function(item){
       this.make(item).append();
-      this.count += 1;
-        return this;
+      return this;
     };
     
     App.doThis = function(fn){
@@ -46,31 +41,41 @@
         return this;
      };
 
+    App.urls = {
+      index : { path : '/todos.json', method : 'get' },
+      create : { path : '/todos.json', method : 'post' },
 
-    App.url = "SOMETHING GOES HERE";
+      // An id must be added to the todos path
+      update : { path : '/todos/', method : 'patch' },
+      destroy : { path : '/todos/', method : 'delete' } 
+    };
     
     App.saveItem = function(item, callback){
-      item.id = this.count;
-      // DO SOEMTHING HERE
-      callback(item);
-      this.count += 1;
+      var data = { todo : item };
+      $.ajax({ url : this.urls.create.path,
+               type : this.urls.create.method,
+               data : data}).done(callback);
       return this;
+    };
+
+    App.getItems = function(callback){
+      $.ajax({url : this.urls.index.path,
+              type : this.urls.index.method}).done(callback);
+      return this;      
     };
 
 
     App.updateItem = function(item, callback){
-    	// DO SOMETHING HERE
-    	callback();
+      // DO SOMETHING HERE
+      // NOTE: For the url, an id for the item must be added to the path
+      callback();
     };
 
     App.deleteItem = function(item, callback){
     	// DO SOMETHING HERE
-    	callback();
+      // NOTE: For the url, an id for the item must be added to the path
+      callback();
     };
-
-    App.use("#todos", "todo")
-      .render(todos[0])
-      .render(todos[1]);
     
    	App.models = todos;
 
@@ -141,7 +146,16 @@
         }
       });
     });
-    
 
-     
+    App.doThis(function() {
+      var _this = this;
+
+      _this.getItems(function(responseData){
+        _this.models = _this.models.concat(responseData);
+        for (var i = 0; i < responseData.length; i++) {
+          _this.use('#todos', 'todo').render(responseData[i]);
+        }
+      });
     });
+
+});
