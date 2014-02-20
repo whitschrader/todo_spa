@@ -50,13 +50,7 @@ $(function(){
       destroy : { path : '/todos/', method : 'delete' } 
     };
     
-    App.saveItem = function(item, callback){
-      var data = { todo : item };
-      $.ajax({ url : this.urls.create.path,
-               type : this.urls.create.method,
-               data : data}).done(callback);
-      return this;
-    };
+   
 
     App.getItems = function(callback){
       $.ajax({url : this.urls.index.path,
@@ -68,13 +62,19 @@ $(function(){
     App.updateItem = function(item, callback){
       // DO SOMETHING HERE
       // NOTE: For the url, an id for the item must be added to the path
-      callback();
+       var data = { todo : item };
+      $.ajax({ url : this.urls.update.path + item.id,
+               type : this.urls.update.method,
+               data : data}).done(callback);
+      return this;
     };
 
     App.deleteItem = function(item, callback){
-    	// DO SOMETHING HERE
-      // NOTE: For the url, an id for the item must be added to the path
-      callback();
+    	 var data = { todo : item };
+      $.ajax({ url : this.urls.destroy.path + item.id,
+               type : this.urls.destroy.method,
+               data : data}).done(callback);
+      return this;
     };
     
    	App.models = todos;
@@ -96,7 +96,14 @@ $(function(){
       this.models.splice(index,1);
     };
 
-   
+    App.saveItem = function(item, callback){
+      var data = { todo : item };
+      $.ajax({ url : this.urls.create.path,
+               type : this.urls.create.method,
+               data : data}).done(callback);
+      return this;
+    };
+
     // Eventhandler for adding todos
     App.doThis(function(){
        var _this = this;
@@ -138,7 +145,7 @@ $(function(){
           var view = this;
           var todo =  _this.findModel(id);
           // DELETE ITEM
-          _this.deleteItem(id, function(){
+          _this.deleteItem(todo, function(){
             _this.removeModel(todo)
             console.log(_this.models)
             $(view).remove();
