@@ -1,4 +1,5 @@
 SpaApp::Application.routes.draw do
+  mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   get "main/index"
   root to: 'main#index'
   get '/todos', to: 'todos#index', as: 'todos'

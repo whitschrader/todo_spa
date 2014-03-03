@@ -22,6 +22,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'unicorn-rails'
   gem 'dotenv-rails'
+  gem 'jasmine-rails'
 end
 
 group :doc do
