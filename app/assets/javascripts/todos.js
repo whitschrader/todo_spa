@@ -33,13 +33,6 @@ $(function () {
 
   });
 
-  $.get("/todos.json").done(function (data) {
-    $(data).each(function (index, someTodo) {
-      var todoHTML = HandlebarsTemplates.todo(someTodo);
-      $("#todos").append(todoHTML);
-    });
-  });
-
   // We are doing a delegate on the #todos div
   $("#todos").on("click", ".todo", function (event) {
     console.log(event);
