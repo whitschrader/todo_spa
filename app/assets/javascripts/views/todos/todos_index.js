@@ -1,6 +1,6 @@
 SpaApp.Views.TodosIndex = Backbone.View.extend({
 
-  template: JST['todos/index'],
+  template: HandlebarsTemplates['todos/index'],
 
   render: function() {
     $(this.el).html(this.template());
