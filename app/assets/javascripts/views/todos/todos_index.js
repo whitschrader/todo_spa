@@ -1,4 +1,5 @@
 SpaApp.Views.TodosIndex = Backbone.View.extend({
+  id: 'todos',
 
   template: HandlebarsTemplates['todos/index'],
 
