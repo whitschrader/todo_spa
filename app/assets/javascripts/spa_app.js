@@ -5,6 +5,8 @@ window.SpaApp = {
   Routers: {},
   initialize: function() {
     console.log('Hello from Backbone!');
+    new SpaApp.Routers.Todos();
+    return Backbone.history.start();
   }
 };
 
