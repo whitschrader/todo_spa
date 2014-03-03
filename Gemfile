@@ -9,6 +9,7 @@ gem 'rails_12factor', group: :production
 gem 'jbuilder', '~> 1.2'
 gem 'turbolinks'
 
+gem 'backbone-on-rails'
 gem 'handlebars_assets'
 
 gem 'sass-rails', '~> 4.0.0'
