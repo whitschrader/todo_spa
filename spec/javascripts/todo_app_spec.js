@@ -1,12 +1,9 @@
 describe('Todo App', function() {
-  var todos;
+  var todos, createdTodo;
   beforeEach(function (){
     // load data fixture
     todos = getJSONFixture('todos.json');
-
-    jasmine.Ajax.install();
-
-    jasmine.Ajax.stubRequest('/todos.json').andReturn(todos);
+    createdTodo = getJSONFixture('todo_create_result.json');
 
     // load container html fixture
     appendSetFixtures('<div id="container"></div>');
@@ -18,11 +15,13 @@ describe('Todo App', function() {
     $('#container').html(view.render().el);
   });
 
-  afterEach(function() {
-    jasmine.Ajax.uninstall();
-  });
-
   it('should show seeded items', function(){
+    spyOn($, 'ajax').and.callFake(function (req) {
+        var d = $.Deferred();
+        d.resolve(todos);
+        return d.promise();
+    });
+
     // check for the rendered todos
     expect($('#todos')).toContainText(todos[0].title);
     expect($('#todos')).toContainText(todos[1].title);
@@ -31,6 +30,12 @@ describe('Todo App', function() {
 
   describe('adding a new todo', function() {
     it('should show up in the list of todos', function() {
+      spyOn($, 'ajax').and.callFake(function (req) {
+          var d = $.Deferred();
+          d.resolve(createdTodo);
+          return d.promise();
+      });
+
       $('#todo_title').val('new todo item');
       $('#addTodo').submit();
 
