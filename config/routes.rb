@@ -1,9 +1,4 @@
 SpaApp::Application.routes.draw do
-  if defined?(JasmineRails) # This will only be true when running tests.
-    mount Rack::Directory.new(File.join(Rails.root, "spec","javascripts", "fixtures")) => '/spec/javascripts/fixtures/'
-    mount JasmineRails::Engine => '/spec'
-  end
-
   get "main/index"
   root to: 'main#index'
   get '/todos', to: 'todos#index', as: 'todos'
