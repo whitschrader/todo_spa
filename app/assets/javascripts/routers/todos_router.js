@@ -4,7 +4,6 @@ SpaApp.Routers.Todos = Backbone.Router.extend({
   },
 
   index: function() {
-    console.log("home page");
     var view = new SpaApp.Views.TodosIndex();
     $('#container').html(view.render().el);
   }
