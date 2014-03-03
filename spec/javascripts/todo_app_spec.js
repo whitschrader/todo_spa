@@ -1,20 +1,40 @@
 describe('Todo App', function() {
-  it('should show seeded items', function(){
+  var todos;
+  beforeEach(function (){
     // load data fixture
-    var data = getJSONFixture('todos.json');
+    todos = getJSONFixture('todos.json');
+
+    jasmine.Ajax.install();
+
+    jasmine.Ajax.stubRequest('/todos.json').andReturn(todos);
 
     // load container html fixture
     appendSetFixtures('<div id="container"></div>');
 
     // create the view
-    var view = new SpaApp.Views.TodosIndex({ collection: data });
+    var view = new SpaApp.Views.TodosIndex({ collection: todos });
 
     // render the view
     $('#container').html(view.render().el);
+  });
 
-    // check for the rendered data
-    expect($('#todos')).toContainText(data[0].title);
-    expect($('#todos')).toContainText(data[1].title);
-    expect($('#todos')).toContainText(data[2].title);
+  afterEach(function() {
+    jasmine.Ajax.uninstall();
+  });
+
+  it('should show seeded items', function(){
+    // check for the rendered todos
+    expect($('#todos')).toContainText(todos[0].title);
+    expect($('#todos')).toContainText(todos[1].title);
+    expect($('#todos')).toContainText(todos[2].title);
+  });
+
+  describe('adding a new todo', function() {
+    it('should show up in the list of todos', function() {
+      $('#todo_title').val('new todo item');
+      $('#addTodo').submit();
+
+      expect($('#todos')).toContainText('new todo item');
+    });
   });
 });
