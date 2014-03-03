@@ -2,7 +2,7 @@ class TodosController < ApplicationController
   def index
     @todos = Todo.all
     respond_to do |f|
-      f.html
+      f.html { render text: "", layout: true }
       f.json { render :json => @todos, only: [:id, :title, :completed]}
     end
   end
