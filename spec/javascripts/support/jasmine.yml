@@ -1,12 +1,13 @@
 # path to parent directory of src_files
 # relative path from Rails.root
 # defaults to app/assets/javascripts
-src_dir: "app/assets/javascripts"
+src_dir: 
 
 # list of file expressions to include as source files
 # relative path from src_dir
 src_files:
  - "application.{js.coffee,js,coffee}"
+ - "../../../vendor/assets/javascripts/jasmine-jquery.js"
 
 # path to parent directory of spec_files
 # relative path from Rails.root
