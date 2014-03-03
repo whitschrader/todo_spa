@@ -4,7 +4,7 @@ window.SpaApp = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    console.log('Hello from Backbone!');
   }
 };
 
