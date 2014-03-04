@@ -2,7 +2,6 @@ class TodosController < ApplicationController
   def index
     @todos = Todo.all
     respond_to do |f|
-      f.html
       f.json { render :json => @todos, only: [:id, :title, :completed]}
     end
   end
@@ -22,7 +21,7 @@ class TodosController < ApplicationController
     todo.destroy
 
     respond_to do |f|
-      f.json { render :json => @todo }
+      f.json { render json: {}, status: 200}
     end
   end
 
